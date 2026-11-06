@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pink Arcade Player ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --pink: #f8c9dc;
+    --light: #fff0f6;
+    --dark: #b66c8c;
+    --accent: #e99bb9;
+    --white: #fffafd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #fbdce8;
+    background-image:
+      radial-gradient(#eeb2cb 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    font-family: 'Press Start 2P', monospace;
+    color: var(--dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 12px;
+}
+
+.arcade {
+    width: 100%;
+    max-width: 850px;
+    background: var(--light);
+    border: 6px solid var(--accent);
+    box-shadow: 10px 10px 0 #d88dab;
+    padding: 22px;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    font-size: 15px;
+    line-height: 2;
+    border-bottom: 3px dashed var(--accent);
+    padding-bottom: 18px;
+}
+
+.subtitle {
+    font-size: 8px;
+    margin-top: 8px;
+}
+
+.decor {
+    position: absolute;
+    font-size: 23px;
+    animation: spin 5s linear infinite;
+}
+
+.decor.one {
+    top: 85px;
+    right: 25px;
+}
+
+.decor.two {
+    top: 85px;
+    left: 25px;
+    animation-direction: reverse;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.panel {
+    background: var(--white);
+    border: 4px solid var(--pink);
+    padding: 17px;
+    box-shadow: 4px 4px 0 #e9b1c9;
+}
+
+.panel-title {
+    font-size: 10px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.cover {
+    width: 100%;
+    max-width: 230px;
+    aspect-ratio: 1;
+    margin: auto;
+    background: #f6c5d9;
+    border: 5px solid white;
+    box-shadow: 5px 5px 0 var(--accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+    overflow: hidden;
+    image-rendering: pixelated;
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.song-title {
+    font-size: 11px;
+    text-align: center;
+    line-height: 2;
+    margin-top: 23px;
+    overflow-wrap: anywhere;
+}
+
+.artist {
+    font-size: 8px;
+    text-align: center;
+    margin-top: 10px;
+    color: #ce91aa;
+}
+
+.progress {
+    height: 11px;
+    background: #f6d3e1;
+    border: 2px solid var(--accent);
+    margin-top: 22px;
+    cursor: pointer;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #d981a5;
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 7px;
+    margin-top: 8px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 22px 0;
+}
+
+button {
+    font-family: inherit;
+    font-size: 10px;
+    color: var(--dark);
+    background: #ffe1ec;
+    border: 3px solid var(--accent);
+    padding: 12px;
+    box-shadow: 3px 3px 0 #d88dab;
+    cursor: pointer;
+}
+
+button:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+.play {
+    background: #f4b5ce;
+    font-size: 15px;
+}
+
+.volume {
+    font-size: 8px;
+    margin-top: 12px;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #d981a5;
+    cursor: pointer;
+}
+
+.playlist {
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 8px;
+    font-size: 8px;
+    line-height: 1.8;
+    border-bottom: 2px dashed #f4c9d9;
+    cursor: pointer;
+    overflow-wrap: anywhere;
+}
+
+.track:hover,
+.track.active {
+    background: #ffe2ed;
+    color: #ad557a;
+}
+
+.track-number {
+    color: #d88dab;
+    min-width: 20px;
+}
+
+.lyrics {
+    grid-column: 1 / -1;
+}
+
+.lyrics-box {
+    height: 160px;
+    overflow-y: auto;
+    background: #fff0f6;
+    border: 3px dashed var(--accent);
+    padding: 15px;
+    font-size: 9px;
+    line-height: 2.5;
+    text-align: center;
+    white-space: pre-wrap;
+}
+
+.lyrics-input {
+    margin-top: 12px;
+    width: 100%;
+    height: 75px;
+    background: white;
+    border: 2px solid var(--accent);
+    padding: 10px;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--dark);
+    resize: vertical;
+}
+
+.upload {
+    margin-top: 18px;
+    font-size: 8px;
+    line-height: 2.5;
+}
+
+input[type="file"] {
+    width: 100%;
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--dark);
+}
+
+.footer {
+    text-align: center;
+    font-size: 8px;
+    margin-top: 25px;
+    padding-top: 17px;
+    border-top: 3px dashed var(--accent);
+    line-height: 2.5;
+}
+
+@media(max-width: 600px) {
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .lyrics {
+        grid-column: auto;
+    }
+
+    .header {
+        font-size: 11px;
+    }
+
+    .decor {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="arcade">
+
+    <div class="decor one">✿</div>
+    <div class="decor two">✧</div>
+
+    <div class="header">
+        ♡ PINK ARCADE ♡
+        <div class="subtitle">MY LITTLE MUSIC WORLD</div>
+    </div>
+
+    <div class="main">
+
+        <!-- MUSIC PLAYER -->
+
+        <div class="panel">
+
+            <div class="panel-title">♪ NOW PLAYING ♪</div>
+
+            <div class="cover" id="cover">
+                🎀
+            </div>
+
+            <div class="song-title" id="songTitle">
+                NO SONG SELECTED
+            </div>
+
+            <div class="artist" id="artist">
+                upload your music ♡
+            </div>
+
+            <div class="progress" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="time">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+
+            <div class="controls">
+                <button onclick="previousSong()">◀◀</button>
+                <button class="play" id="playBtn" onclick="togglePlay()">▶</button>
+                <button onclick="nextSong()">▶▶</button>
+            </div>
+
+            <div class="volume">
+                🔊 VOLUME
+                <input
+                    type="range"
+                    id="volume"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="0.7"
+                >
+            </div>
+
+            <div class="upload">
+                ADD MUSIC ♡
+                <input
+                    type="file"
+                    id="musicUpload"
+                    accept="audio/*"
+                    multiple
+                >
+            </div>
+
+            <div class="upload">
+                ADD ALBUM COVERS
+                <input
+                    type="file"
+                    id="coverUpload"
+                    accept="image/*"
+                    multiple
+                >
+            </div>
+
+        </div>
+
+        <!-- PLAYLIST -->
+
+        <div class="panel">
+
+            <div class="panel-title">♡ PLAYLIST ♡</div>
+
+            <div class="playlist" id="playlist">
+                <div style="font-size:8px;line-height:2.5;text-align:center">
+                    YOUR SONGS WILL APPEAR HERE ♡
+                </div>
+            </div>
+
+            <div class="upload">
+                TOTAL SONGS:
+                <span id="songCount">0</span>
+            </div>
+
+        </div>
+
+        <!-- LYRICS -->
+
+        <div class="panel lyrics">
+
+            <div class="panel-title">✧ LYRICS DISPLAY ✧</div>
+
+            <div class="lyrics-box" id="lyricsDisplay">
+                ♡
+
+                YOUR LYRICS GO HERE
+
+                ♡
+
+                Add your favorite lyrics below!
+            </div>
+
+            <textarea
+                class="lyrics-input"
+                id="lyricsInput"
+                placeholder="Paste your own lyrics here..."
+            ></textarea>
+
+            <button onclick="saveLyrics()" style="width:100%;margin-top:10px">
+                SAVE LYRICS ♡
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        MADE WITH LOVE ♡
+        <br>
+        INSERT COIN TO PLAY ♪
+    </div>
+
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+
+const audio = document.getElementById("audio");
+
+let songs = [];
+let currentIndex = 0;
+let covers = [];
+let coverURLs = [];
+
+const musicUpload = document.getElementById("musicUpload");
+const coverUpload = document.getElementById("coverUpload");
+
+musicUpload.addEventListener("change", function() {
+
+    songs.forEach(song => URL.revokeObjectURL(song.url));
+
+    songs = Array.from(this.files).map(file => ({
+        name: file.name.replace(/\.[^/.]+$/, ""),
+        url: URL.createObjectURL(file)
+    }));
+
+    currentIndex = 0;
+    updatePlaylist();
+
+    if (songs.length > 0) {
+        loadSong(0);
+    }
+});
+
+coverUpload.addEventListener("change", function() {
+
+    coverURLs.forEach(url => URL.revokeObjectURL(url));
+
+    covers = Array.from(this.files);
+    coverURLs = covers.map(file => URL.createObjectURL(file));
+
+    updateCover();
+
+});
+
+function updatePlaylist() {
+
+    const playlist = document.getElementById("playlist");
+
+    playlist.innerHTML = "";
+
+    songs.forEach((song, index) => {
+
+        const track = document.createElement("div");
+
+        track.className =
+            "track" + (index === currentIndex ? " active" : "");
+
+        const number = document.createElement("span");
+        number.className = "track-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+
+        const name = document.createElement("span");
+        name.textContent = song.name;
+
+        track.append(number, name);
+
+        track.onclick = () => loadSong(index);
+
+        playlist.appendChild(track);
+
+    });
+
+    document.getElementById("songCount").textContent = songs.length;
+
+}
+
+function loadSong(index) {
+
+    if (!songs.length) return;
+
+    currentIndex = index;
+
+    audio.src = songs[index].url;
+
+    document.getElementById("songTitle").textContent =
+        songs[index].name;
+
+    document.getElementById("artist").textContent =
+        "NOW PLAYING ♡";
+
+    updateCover();
+    updatePlaylist();
+
+    audio.play().catch(() => {
+        document.getElementById("playBtn").textContent = "▶";
+    });
+
+    document.getElementById("playBtn").textContent = "Ⅱ";
+
+}
+
+function updateCover() {
+
+    const cover = document.getElementById("cover");
+
+    cover.innerHTML = "";
+
+    if (covers[currentIndex]) {
+
+        const img = document.createElement("img");
+        img.src = coverURLs[currentIndex];
+        cover.appendChild(img);
+
+    } else {
+
+        cover.textContent = "🎀";
+
+    }
+
+}
+
+function togglePlay() {
+
+    if (!songs.length) return;
+
+    if (audio.paused) {
+
+        audio.play();
+        document.getElementById("playBtn").textContent = "Ⅱ";
+
+    } else {
+
+        audio.pause();
+        document.getElementById("playBtn").textContent = "▶";
+
+    }
+
+}
+
+function nextSong() {
+
+    if (!songs.length) return;
+
+    currentIndex = (currentIndex + 1) % songs.length;
+    loadSong(currentIndex);
+
+}
+
+function previousSong() {
+
+    if (!songs.length) return;
+
+    currentIndex =
+        (currentIndex - 1 + songs.length) % songs.length;
+
+    loadSong(currentIndex);
+
+}
+
+audio.addEventListener("ended", nextSong);
+
+audio.addEventListener("timeupdate", () => {
+
+    if (!audio.duration) return;
+
+    const percent =
+        (audio.currentTime / audio.duration) * 100;
+
+    document.getElementById("progressFill").style.width =
+        percent + "%";
+
+    document.getElementById("currentTime").textContent =
+        formatTime(audio.currentTime);
+
+    document.getElementById("duration").textContent =
+        formatTime(audio.duration);
+
+});
+
+function formatTime(seconds) {
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+
+    return minutes + ":" + String(secs).padStart(2, "0");
+
+}
+
+document.getElementById("progressBar").addEventListener("click", e => {
+
+    if (!audio.duration) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const percent =
+        (e.clientX - rect.left) / rect.width;
+
+    audio.currentTime = percent * audio.duration;
+
+});
+
+document.getElementById("volume").addEventListener("input", e => {
+
+    audio.volume = Number(e.target.value);
+
+});
+
+audio.volume = 0.7;
+
+function saveLyrics() {
+
+    const lyrics =
+        document.getElementById("lyricsInput").value;
+
+    document.getElementById("lyricsDisplay").textContent =
+        lyrics || "♡ ADD YOUR LYRICS ♡";
+
+}
+
+</script>
+
+</body>
+</html>
